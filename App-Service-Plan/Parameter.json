@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "svcPlanName": {
-      "value": "PlanTestForAppServicePlan"
+      "value": "PlanTestForAppServicePlan2"
     },
     "sku": {
       "value": "Standard"
