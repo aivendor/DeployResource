@@ -1,0 +1,57 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "svcPlanName": {
+      "type": "string",
+      "defaultValue": "SampleAppServicePlan",
+      "metadata": {
+        "description": "The name of the App Service plan."
+      }
+    },
+    "sku": {
+      "type": "string",
+      "defaultValue": "Standard",
+      "allowedValues": [
+        "Standard",
+        "Premium"
+      ],
+      "metadata": {
+        "description": "The pricing tier for the App Service plan."
+      }
+    },
+    "svcPlanSize": {
+      "defaultValue": "S1",
+      "type": "string",
+      "metadata": {
+        "description": "The instance size of the app."
+      }
+    },
+    "metricName": {
+      "type": "String",
+      "defaultValue": "CpuPercentage",
+      "metadata": {
+        "description": "The metric name."
+      }
+    }
+  },
+  "variables": {
+    "settingName": "[concat(toLower(parameters('svcPlanName')), '-setting')]",
+    "targetResourceId": "[resourceId('Microsoft.Web/serverFarms/', parameters('svcPlanName'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2015-08-01",
+      "name": "[parameters('svcPlanName')]",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "[parameters('svcPlanSize')]",
+        "tier": "[parameters('sku')]",
+        "capacity": 1
+      }
+    }
+  ],
+  "outputs": {
+  }
+}
